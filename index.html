@@ -710,6 +710,53 @@
             font-size: 12px;
         }
 
+        /* Photo Upload Styles */
+        .photo-upload {
+            margin-bottom: 20px;
+        }
+
+        .photo-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .photo-preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .photo-preview {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-preview .delete-photo {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -750,6 +797,10 @@
             .modal-content {
                 width: 90%;
                 margin: 20% auto;
+            }
+
+            .photo-options {
+                flex-direction: column;
             }
         }
 
@@ -841,6 +892,21 @@
                     <textarea id="project-purpose" rows="3" placeholder="State the project's goals and objectives..."></textarea>
                 </div>
 
+                <!-- Photo Upload Section -->
+                <div class="form-group photo-upload">
+                    <label>Add Project Photos:</label>
+                    <div class="photo-options">
+                        <button type="button" class="button secondary-button" id="take-photo-btn">
+                            <i class="fas fa-camera"></i> Take Photo
+                        </button>
+                        <button type="button" class="button secondary-button" id="upload-photo-btn">
+                            <i class="fas fa-upload"></i> Upload Photo
+                        </button>
+                    </div>
+                    <div class="photo-preview-container" id="photo-preview"></div>
+                    <input type="file" id="photo-input" accept="image/*" capture="environment" style="display:none;">
+                </div>
+
                 <div class="navigation-buttons">
                     <button type="button" class="button next-button" onclick="nextSection('project-section', 'site-section')">
                         Next: Site Information <i class="fas fa-arrow-right"></i>
@@ -909,6 +975,21 @@
                         </select>
                         <span class="select-icon"><i class="fas fa-chevron-down"></i></span>
                     </div>
+                </div>
+
+                <!-- Photo Upload Section -->
+                <div class="form-group photo-upload">
+                    <label>Add Site Photos:</label>
+                    <div class="photo-options">
+                        <button type="button" class="button secondary-button" id="take-photo-btn-site">
+                            <i class="fas fa-camera"></i> Take Photo
+                        </button>
+                        <button type="button" class="button secondary-button" id="upload-photo-btn-site">
+                            <i class="fas fa-upload"></i> Upload Photo
+                        </button>
+                    </div>
+                    <div class="photo-preview-container" id="photo-preview-site"></div>
+                    <input type="file" id="photo-input-site" accept="image/*" capture="environment" style="display:none;">
                 </div>
 
                 <div class="navigation-buttons">
@@ -1023,6 +1104,21 @@
                         <span>High</span>
                     </div>
                 </div>
+            </div>
+
+            <!-- Photo Upload Section -->
+            <div class="form-group photo-upload">
+                <label>Add Risk Evidence Photos:</label>
+                <div class="photo-options">
+                    <button type="button" class="button secondary-button" id="take-photo-btn-risk">
+                        <i class="fas fa-camera"></i> Take Photo
+                    </button>
+                    <button type="button" class="button secondary-button" id="upload-photo-btn-risk">
+                        <i class="fas fa-upload"></i> Upload Photo
+                    </button>
+                </div>
+                <div class="photo-preview-container" id="photo-preview-risk"></div>
+                <input type="file" id="photo-input-risk" accept="image/*" capture="environment" style="display:none;">
             </div>
 
             <div class="navigation-buttons">
@@ -1152,6 +1248,7 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
     <script>
         // DOM Elements
@@ -1180,6 +1277,9 @@
             
             // Initialize the map
             initMap();
+            
+            // Set up photo capture
+            setupPhotoCapture();
             
             // Load any saved data
             loadSavedData();
@@ -1211,21 +1311,6 @@
                 const newLatLng = marker.getLatLng();
                 updateLocationInput(newLatLng);
             });
-            
-          /*  // Add geocoder control
-            L.Control.geocoder({
-                defaultMarkGeocode: false,
-                position: 'topleft',
-                placeholder: 'Search for location...',
-                errorMessage: 'Nothing found.'
-            })
-            .on('markgeocode', function(e) {
-                const { center, name } = e.geocode;
-                updateMapMarker(center);
-                updateLocationInput(center);
-                document.getElementById('location').value = name;
-            })
-            .addTo(map); */
             
             // Update coordinates display on map move
             map.on('move', function() {
@@ -1332,6 +1417,9 @@
                     map.invalidateSize();
                 }, 300);
             }
+            
+            // Load photos for current section
+            loadPhotosFromLocalStorage();
         }
 
         function nextSection(currentId, nextId) {
@@ -1709,6 +1797,160 @@
             };
         }
 
+        // Photo Capture Functionality
+        function setupPhotoCapture() {
+            // Project section photo capture
+            const takePhotoBtn = document.getElementById('take-photo-btn');
+            const uploadPhotoBtn = document.getElementById('upload-photo-btn');
+            const photoInput = document.getElementById('photo-input');
+            const photoPreview = document.getElementById('photo-preview');
+            
+            setupPhotoButtons(takePhotoBtn, uploadPhotoBtn, photoInput, photoPreview, 'project');
+            
+            // Site section photo capture
+            const takePhotoBtnSite = document.getElementById('take-photo-btn-site');
+            const uploadPhotoBtnSite = document.getElementById('upload-photo-btn-site');
+            const photoInputSite = document.getElementById('photo-input-site');
+            const photoPreviewSite = document.getElementById('photo-preview-site');
+            
+            setupPhotoButtons(takePhotoBtnSite, uploadPhotoBtnSite, photoInputSite, photoPreviewSite, 'site');
+            
+            // Risk section photo capture
+            const takePhotoBtnRisk = document.getElementById('take-photo-btn-risk');
+            const uploadPhotoBtnRisk = document.getElementById('upload-photo-btn-risk');
+            const photoInputRisk = document.getElementById('photo-input-risk');
+            const photoPreviewRisk = document.getElementById('photo-preview-risk');
+            
+            setupPhotoButtons(takePhotoBtnRisk, uploadPhotoBtnRisk, photoInputRisk, photoPreviewRisk, 'risk');
+        }
+        
+        function setupPhotoButtons(takeBtn, uploadBtn, input, preview, section) {
+            takeBtn.addEventListener('click', () => {
+                input.setAttribute('capture', 'environment');
+                input.click();
+            });
+            
+            uploadBtn.addEventListener('click', () => {
+                input.removeAttribute('capture');
+                input.click();
+            });
+            
+            input.addEventListener('change', function(e) {
+                const files = e.target.files;
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    if (file.type.match('image.*')) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const photoDiv = document.createElement('div');
+                            photoDiv.className = 'photo-preview';
+                            
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            
+                            const deleteBtn = document.createElement('button');
+                            deleteBtn.className = 'delete-photo';
+                            deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
+                            deleteBtn.addEventListener('click', () => {
+                                photoDiv.remove();
+                                savePhotosToLocalStorage(section);
+                            });
+                            
+                            photoDiv.appendChild(img);
+                            photoDiv.appendChild(deleteBtn);
+                            preview.appendChild(photoDiv);
+                            
+                            savePhotosToLocalStorage(section);
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                }
+                // Reset input to allow selecting same file again
+                input.value = '';
+            });
+        }
+        
+        function savePhotosToLocalStorage(section) {
+            let previewId;
+            switch(section) {
+                case 'project':
+                    previewId = 'photo-preview';
+                    break;
+                case 'site':
+                    previewId = 'photo-preview-site';
+                    break;
+                case 'risk':
+                    previewId = 'photo-preview-risk';
+                    break;
+                default:
+                    return;
+            }
+            
+            const photoPreview = document.getElementById(previewId);
+            const photos = [];
+            
+            photoPreview.querySelectorAll('img').forEach(img => {
+                photos.push(img.src);
+            });
+            
+            // Save to localStorage with section identifier
+            const currentData = JSON.parse(localStorage.getItem('biosecurityAssessmentData') || '{}');
+            currentData.photos = currentData.photos || {};
+            currentData.photos[section] = photos;
+            localStorage.setItem('biosecurityAssessmentData', JSON.stringify(currentData));
+        }
+        
+        function loadPhotosFromLocalStorage() {
+            const currentData = JSON.parse(localStorage.getItem('biosecurityAssessmentData') || '{}');
+            if (!currentData.photos) return;
+            
+            // Determine which section we're in and load appropriate photos
+            let previewId, section;
+            switch(currentSection) {
+                case 0: // Project section
+                    previewId = 'photo-preview';
+                    section = 'project';
+                    break;
+                case 1: // Site section
+                    previewId = 'photo-preview-site';
+                    section = 'site';
+                    break;
+                case 2: // Risk section
+                    previewId = 'photo-preview-risk';
+                    section = 'risk';
+                    break;
+                default:
+                    return;
+            }
+            
+            const photoPreview = document.getElementById(previewId);
+            if (!photoPreview) return;
+            
+            photoPreview.innerHTML = '';
+            
+            if (currentData.photos[section]) {
+                currentData.photos[section].forEach(photoSrc => {
+                    const photoDiv = document.createElement('div');
+                    photoDiv.className = 'photo-preview';
+                    
+                    const img = document.createElement('img');
+                    img.src = photoSrc;
+                    
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'delete-photo';
+                    deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    deleteBtn.addEventListener('click', () => {
+                        photoDiv.remove();
+                        savePhotosToLocalStorage(section);
+                    });
+                    
+                    photoDiv.appendChild(img);
+                    photoDiv.appendChild(deleteBtn);
+                    photoPreview.appendChild(photoDiv);
+                });
+            }
+        }
+
         // Data Management Functions
         function saveDataToLocalStorage() {
             const data = {
@@ -1739,8 +1981,30 @@
                     quarantineBreach: document.getElementById('quarantine-breach').value,
                     trainingCompliance: document.getElementById('training-compliance').value,
                     supplyChain: document.getElementById('supply-chain').value
-                }
+                },
+                photos: {}
             };
+            
+            // Save photos from all sections
+            ['project', 'site', 'risk'].forEach(section => {
+                let previewId;
+                switch(section) {
+                    case 'project':
+                        previewId = 'photo-preview';
+                        break;
+                    case 'site':
+                        previewId = 'photo-preview-site';
+                        break;
+                    case 'risk':
+                        previewId = 'photo-preview-risk';
+                        break;
+                }
+                
+                const photoPreview = document.getElementById(previewId);
+                if (photoPreview) {
+                    data.photos[section] = Array.from(photoPreview.querySelectorAll('img')).map(img => img.src);
+                }
+            });
             
             localStorage.setItem('biosecurityAssessmentData', JSON.stringify(data));
         }
@@ -1800,6 +2064,8 @@
                         slider.dispatchEvent(new Event('input'));
                     });
                 }
+                
+                // Photos will be loaded when the section is shown
             }
         }
 
@@ -1846,7 +2112,7 @@
             saveAs(blob, `Biosecurity_Risk_Assessment_${new Date().toISOString().slice(0,10)}.csv`);
         }
 
-        function generatePDFReport() {
+        async function generatePDFReport() {
             const { jsPDF } = window.jspdf;
             
             // Ask for report name
@@ -2062,10 +2328,99 @@
                     yPos = writeText(field.value, margin + 5, yPos) + paragraphSpacing;
                 });
 
+                // Add Map to PDF
+                if (map) {
+                    try {
+                        // Convert map to image
+                        const mapContainer = document.getElementById('map');
+                        const mapImage = await htmlToCanvasPromise(mapContainer);
+                        
+                        // Add to PDF
+                        doc.addPage();
+                        yPos = margin;
+                        addHeader(doc.internal.getNumberOfPages(), 0);
+                        addFooter();
+                        
+                        doc.setFontSize(sectionTitleSize);
+                        doc.setTextColor(primaryColor);
+                        doc.text("Project Location Map", margin, yPos);
+                        yPos += lineHeight * 2;
+                        
+                        const mapWidth = pageWidth - 2 * margin;
+                        const mapHeight = (mapContainer.offsetHeight / mapContainer.offsetWidth) * mapWidth;
+                        doc.addImage(mapImage, 'PNG', margin, yPos, mapWidth, mapHeight);
+                        yPos += mapHeight + lineHeight;
+                        
+                        // Add coordinates
+                        doc.setFontSize(bodyTextSize);
+                        doc.setTextColor(secondaryColor);
+                        doc.text(`Coordinates: ${currentLatLng.lat.toFixed(6)}, ${currentLatLng.lng.toFixed(6)}`, margin, yPos);
+                        yPos += lineHeight;
+                        
+                        // Add location description if available
+                        const location = document.getElementById("location").value;
+                        if (location) {
+                            doc.text(`Location: ${location}`, margin, yPos);
+                            yPos += lineHeight;
+                        }
+                    } catch (e) {
+                        console.error("Error adding map to PDF:", e);
+                    }
+                }
+
+                // Add Photos to PDF
+                const photoSections = [
+                    { id: 'photo-preview', title: 'Project Photos' },
+                    { id: 'photo-preview-site', title: 'Site Photos' },
+                    { id: 'photo-preview-risk', title: 'Risk Evidence Photos' }
+                ];
+                
+                for (const section of photoSections) {
+                    const photoPreview = document.getElementById(section.id);
+                    if (photoPreview && photoPreview.children.length > 0) {
+                        doc.addPage();
+                        yPos = margin;
+                        addHeader(doc.internal.getNumberOfPages(), 0);
+                        addFooter();
+                        
+                        doc.setFontSize(sectionTitleSize);
+                        doc.setTextColor(primaryColor);
+                        doc.text(section.title, margin, yPos);
+                        yPos += lineHeight * 2;
+                        
+                        const photos = Array.from(photoPreview.querySelectorAll('img'));
+                        const photoWidth = (pageWidth - 2 * margin - 10) / 2; // 2 photos per row
+                        const photoHeight = photoWidth * 0.75; // 4:3 aspect ratio
+                        
+                        for (let i = 0; i < photos.length; i++) {
+                            // Check if we need a new page (4 photos per page)
+                            if (i > 0 && i % 4 === 0) {
+                                doc.addPage();
+                                yPos = margin;
+                                addHeader(doc.internal.getNumberOfPages(), 0);
+                                addFooter();
+                                doc.setFontSize(sectionTitleSize);
+                                doc.setTextColor(primaryColor);
+                                doc.text(`${section.title} (continued)`, margin, yPos);
+                                yPos += lineHeight * 2;
+                            }
+                            
+                            const xPos = margin + (i % 2) * (photoWidth + 10);
+                            const currentY = yPos + Math.floor(i / 2) % 2 * (photoHeight + 10);
+                            
+                            try {
+                                doc.addImage(photos[i].src, 'JPEG', xPos, currentY, photoWidth, photoHeight);
+                            } catch (e) {
+                                console.error("Error adding photo to PDF:", e);
+                            }
+                        }
+                    }
+                }
+
                 // Add Risk Assessment page with improved table layout
                 doc.addPage();
                 yPos = margin;
-                addHeader(4, 0);
+                addHeader(doc.internal.getNumberOfPages(), 0);
                 addFooter();
                 
                 yPos = writeText("3. Risk Assessment", margin, yPos, {
@@ -2199,6 +2554,15 @@
             }
         }
 
+        // Helper function for converting HTML to canvas
+        function htmlToCanvasPromise(element) {
+            return new Promise((resolve) => {
+                html2canvas(element).then(canvas => {
+                    resolve(canvas.toDataURL('image/png'));
+                });
+            });
+        }
+
         function clearAllData() {
             if (confirm("Are you sure you want to delete all data? This action cannot be undone.")) {
                 // Clear form inputs
@@ -2227,6 +2591,11 @@
                 currentLatLng = { lat: 0, lng: 0 };
                 updateMapMarker(currentLatLng);
                 updateLocationInput(currentLatLng);
+                
+                // Clear photo previews
+                document.querySelectorAll('.photo-preview-container').forEach(container => {
+                    container.innerHTML = '';
+                });
                 
                 // Clear local storage
                 localStorage.removeItem('biosecurityAssessmentData');
