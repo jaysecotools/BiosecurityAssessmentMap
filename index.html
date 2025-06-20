@@ -1187,8 +1187,8 @@
 
         // Initialize Leaflet map
         function initMap() {
-            // Default to a world view
-            map = L.map('map').setView([20, 0], 2);
+            // Default to Melbourne Australia 
+            map = L.map('map').setView([-37.8136, 144.9631], 10);
             
             // Add OpenStreetMap tiles
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
