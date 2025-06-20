@@ -22,12 +22,26 @@
             background-color: #f5f9fa;
             color: #333;
             line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
         }
 
         /* Typography */
         h1, h2, h3, h4 {
             color: #007a6c;
             margin-bottom: 15px;
+            transition: color 0.3s;
+        }
+
+        .dark-mode h1, 
+        .dark-mode h2, 
+        .dark-mode h3, 
+        .dark-mode h4 {
+            color: #4db8a7;
         }
 
         h1 {
@@ -40,17 +54,31 @@
             border-bottom: 2px solid #e0f0ee;
             padding-bottom: 10px;
             margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        .dark-mode h2 {
+            border-bottom-color: #2a4a45;
         }
 
         h3 {
             font-size: 18px;
             color: #4a4a4a;
+            transition: color 0.3s;
+        }
+
+        .dark-mode h3 {
+            color: #c0c0c0;
         }
 
         .subtitle {
             color: #e5e5e5;
             font-size: 16px;
             margin-bottom: 20px;
+        }
+
+        .dark-mode .subtitle {
+            color: #a0a0a0;
         }
 
         /* Layout */
@@ -69,11 +97,47 @@
             border-radius: 5px;
             margin-bottom: 30px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        .dark-mode header {
+            background-color: #005a50;
         }
 
         header h1 {
             color: white;
             margin-bottom: 0;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .dark-mode .theme-toggle {
+            background: rgba(0, 0, 0, 0.2);
+            color: #e0e0e0;
+        }
+
+        .dark-mode .theme-toggle:hover {
+            background: rgba(0, 0, 0, 0.3);
         }
 
         /* Progress Indicator */
@@ -90,6 +154,10 @@
             margin-bottom: 10px;
         }
 
+        .dark-mode .progress-bar {
+            background-color: #4db8a7;
+        }
+
         .progress-steps {
             display: flex;
             justify-content: space-between;
@@ -103,6 +171,11 @@
             font-size: 14px;
             position: relative;
             padding-top: 25px;
+            transition: color 0.3s;
+        }
+
+        .dark-mode .progress-step {
+            color: #666;
         }
 
         .progress-step:before {
@@ -116,11 +189,21 @@
             background-color: #ddd;
             border-radius: 50%;
             z-index: 1;
+            transition: background-color 0.3s;
+        }
+
+        .dark-mode .progress-step:before {
+            background-color: #444;
         }
 
         .progress-step.active:before, 
         .progress-step.completed:before {
             background-color: #007a6c;
+        }
+
+        .dark-mode .progress-step.active:before,
+        .dark-mode .progress-step.completed:before {
+            background-color: #4db8a7;
         }
 
         .progress-step.completed:after {
@@ -130,8 +213,8 @@
             color: white;
             position: absolute;
             top: 2px;
-            left: 50%;
-            transform: translateX(-50%);
+            right: 50%;
+            transform: translateX(50%);
             font-size: 12px;
             z-index: 2;
         }
@@ -139,6 +222,10 @@
         .progress-step.current {
             color: #007a6c;
             font-weight: bold;
+        }
+
+        .dark-mode .progress-step.current {
+            color: #4db8a7;
         }
 
         /* Card Sections */
@@ -150,6 +237,13 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             border-left: 4px solid #007a6c;
             display: none;
+            transition: all 0.3s;
+        }
+
+        .dark-mode .card {
+            background: #2a2a2a;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            border-left-color: #4db8a7;
         }
 
         .card.active {
@@ -184,6 +278,11 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: #4a4a4a;
+            transition: color 0.3s;
+        }
+
+        .dark-mode label {
+            color: #c0c0c0;
         }
 
         .input-icon {
@@ -192,6 +291,11 @@
             top: 35px;
             color: #007a6c;
             font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .dark-mode .input-icon {
+            color: #4db8a7;
         }
 
         input[type="text"],
@@ -204,8 +308,18 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 15px;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
             background-color: #f9fbfa;
+        }
+
+        .dark-mode input[type="text"],
+        .dark-mode input[type="date"],
+        .dark-mode input[type="number"],
+        .dark-mode textarea,
+        .dark-mode select {
+            background-color: #333;
+            border-color: #444;
+            color: #e0e0e0;
         }
 
         input[type="text"]:focus,
@@ -216,6 +330,15 @@
             border-color: #007a6c;
             outline: none;
             box-shadow: 0 0 0 2px rgba(0, 122, 108, 0.2);
+        }
+
+        .dark-mode input[type="text"]:focus,
+        .dark-mode input[type="date"]:focus,
+        .dark-mode input[type="number"]:focus,
+        .dark-mode textarea:focus,
+        .dark-mode select:focus {
+            border-color: #4db8a7;
+            box-shadow: 0 0 0 2px rgba(77, 184, 167, 0.3);
         }
 
         textarea {
@@ -234,6 +357,11 @@
             transform: translateY(-50%);
             pointer-events: none;
             color: #007a6c;
+            transition: color 0.3s;
+        }
+
+        .dark-mode .select-icon {
+            color: #4db8a7;
         }
 
         select {
@@ -252,6 +380,12 @@
             margin: 2px 0;
             background-color: #f0f7f6;
             border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .dark-mode select[multiple] option {
+            background-color: #3a3a3a;
+            color: #e0e0e0;
         }
 
         .hint {
@@ -260,6 +394,11 @@
             font-size: 13px;
             color: #777;
             font-style: italic;
+            transition: color 0.3s;
+        }
+
+        .dark-mode .hint {
+            color: #888;
         }
 
         /* Error Styling */
@@ -297,6 +436,11 @@
             font-size: 18px;
             width: 24px;
             text-align: center;
+            transition: color 0.3s;
+        }
+
+        .dark-mode .risk-icon {
+            color: #4db8a7;
         }
 
         input[type="range"] {
@@ -317,6 +461,12 @@
             cursor: pointer;
             border: 2px solid white;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .dark-mode input[type="range"]::-webkit-slider-thumb {
+            background: #4db8a7;
+            border-color: #333;
         }
 
         input[type="range"].low-risk::-webkit-slider-thumb {
@@ -340,6 +490,12 @@
             padding: 5px 10px;
             border-radius: 20px;
             font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .dark-mode output {
+            color: #4db8a7;
+            background: #2a4a45;
         }
 
         .slider-labels {
@@ -348,6 +504,11 @@
             margin-top: 5px;
             font-size: 12px;
             color: #777;
+            transition: color 0.3s;
+        }
+
+        .dark-mode .slider-labels {
+            color: #888;
         }
 
         /* Risk Assessment Results */
@@ -365,6 +526,11 @@
             padding: 20px;
             border-radius: 8px;
             text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .dark-mode .risk-score-container {
+            background: #2a3a38;
         }
 
         .risk-meter {
@@ -373,6 +539,11 @@
             border-radius: 10px;
             margin: 15px 0;
             overflow: hidden;
+            transition: background-color 0.3s;
+        }
+
+        .dark-mode .risk-meter {
+            background: #444;
         }
 
         .risk-meter-fill {
@@ -402,6 +573,11 @@
         .risk-score-display #risk-score {
             color: #007a6c;
             font-size: 36px;
+            transition: color 0.3s;
+        }
+
+        .dark-mode .risk-score-display #risk-score {
+            color: #4db8a7;
         }
 
         .risk-level {
@@ -417,14 +593,29 @@
             color: #2e7d32;
         }
 
+        .dark-mode .risk-level.low {
+            background: #1e3e20;
+            color: #a5d6a7;
+        }
+
         .risk-level.medium {
             background: #fff8e1;
             color: #ff8f00;
         }
 
+        .dark-mode .risk-level.medium {
+            background: #3e2e00;
+            color: #ffd54f;
+        }
+
         .risk-level.high {
             background: #ffebee;
             color: #c62828;
+        }
+
+        .dark-mode .risk-level.high {
+            background: #4a1a1a;
+            color: #ff8a80;
         }
 
         .risk-breakdown {
@@ -443,6 +634,12 @@
             padding: 20px;
             border-radius: 8px;
             border-left: 4px solid #e57200;
+            transition: all 0.3s;
+        }
+
+        .dark-mode .recommendations-container {
+            background: #333;
+            border-left-color: #ff9800;
         }
 
         .recommendations-list ul {
@@ -454,6 +651,11 @@
             border-bottom: 1px solid #eee;
             position: relative;
             padding-left: 25px;
+            transition: border-color 0.3s;
+        }
+
+        .dark-mode .recommendations-list li {
+            border-bottom-color: #444;
         }
 
         .recommendations-list li:before {
@@ -464,6 +666,11 @@
             position: absolute;
             left: 0;
             top: 10px;
+            transition: color 0.3s;
+        }
+
+        .dark-mode .recommendations-list li:before {
+            color: #ff9800;
         }
 
         .recommendations-list li:last-child {
@@ -476,17 +683,36 @@
             background: #e0f0ee;
             border-radius: 5px;
             font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .dark-mode .risk-factors {
+            background: #2a4a45;
         }
 
         .no-risks {
             text-align: center;
             padding: 20px;
             color: #4CAF50;
+            transition: color 0.3s;
+        }
+
+        .dark-mode .no-risks {
+            color: #81c784;
         }
 
         .no-risks i {
             font-size: 40px;
             margin-bottom: 15px;
+        }
+
+        /* Notes Section */
+        .notes-section {
+            margin-top: 30px;
+        }
+
+        .notes-section textarea {
+            min-height: 150px;
         }
 
         /* Buttons */
@@ -520,6 +746,14 @@
             box-shadow: 0 4px 8px rgba(0, 122, 108, 0.3);
         }
 
+        .dark-mode .primary-button {
+            background-color: #4db8a7;
+        }
+
+        .dark-mode .primary-button:hover {
+            background-color: #3da897;
+        }
+
         .secondary-button {
             background-color: #4a4a4a;
             color: white;
@@ -529,6 +763,14 @@
             background-color: #333;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(74, 74, 74, 0.3);
+        }
+
+        .dark-mode .secondary-button {
+            background-color: #666;
+        }
+
+        .dark-mode .secondary-button:hover {
+            background-color: #555;
         }
 
         .danger-button {
@@ -551,6 +793,15 @@
             background-color: #e0e0e0;
         }
 
+        .dark-mode .prev-button {
+            background-color: #444;
+            color: #e0e0e0;
+        }
+
+        .dark-mode .prev-button:hover {
+            background-color: #555;
+        }
+
         .next-button {
             background-color: #e57200;
             color: white;
@@ -560,6 +811,14 @@
             background-color: #d16600;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(229, 114, 0, 0.3);
+        }
+
+        .dark-mode .next-button {
+            background-color: #ff9800;
+        }
+
+        .dark-mode .next-button:hover {
+            background-color: #e68a00;
         }
 
         .navigation-buttons {
@@ -579,10 +838,21 @@
         .disclaimer {
             background: #fff8e1;
             border-left-color: #ffc107;
+            transition: all 0.3s;
+        }
+
+        .dark-mode .disclaimer {
+            background: #3a3a00;
+            border-left-color: #ffd54f;
         }
 
         .disclaimer h3 {
             color: #e57200;
+            transition: color 0.3s;
+        }
+
+        .dark-mode .disclaimer h3 {
+            color: #ff9800;
         }
 
         /* Footer */
@@ -593,6 +863,12 @@
             text-align: center;
             color: #666;
             font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .dark-mode footer {
+            border-top-color: #444;
+            color: #888;
         }
 
         .footer-content {
@@ -613,9 +889,17 @@
             transition: color 0.3s;
         }
 
+        .dark-mode .footer-links a {
+            color: #4db8a7;
+        }
+
         .footer-links a:hover {
             color: #e57200;
             text-decoration: underline;
+        }
+
+        .dark-mode .footer-links a:hover {
+            color: #ff9800;
         }
 
         /* Modal */
@@ -639,6 +923,11 @@
             max-width: 600px;
             position: relative;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+        }
+
+        .dark-mode .modal-content {
+            background-color: #2a2a2a;
         }
 
         .close-modal {
@@ -649,10 +938,19 @@
             font-weight: bold;
             color: #777;
             cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .dark-mode .close-modal {
+            color: #888;
         }
 
         .close-modal:hover {
             color: #333;
+        }
+
+        .dark-mode .close-modal:hover {
+            color: #e0e0e0;
         }
 
         /* Map Styling */
@@ -663,11 +961,22 @@
             border: 1px solid #ddd;
             height: 300px;
             position: relative;
+            transition: border-color 0.3s;
+        }
+
+        .dark-mode .map-container {
+            border-color: #444;
         }
 
         #map {
             height: 100%;
             width: 100%;
+            background-color: #f5f5f5;
+            transition: background-color 0.3s;
+        }
+
+        .dark-mode #map {
+            background-color: #333;
         }
 
         .map-controls {
@@ -681,6 +990,11 @@
             color: #666;
             margin-top: 5px;
             font-family: monospace;
+            transition: color 0.3s;
+        }
+
+        .dark-mode .map-coordinates {
+            color: #888;
         }
 
         .location-buttons {
@@ -700,10 +1014,19 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .dark-mode .location-button {
+            background-color: #4db8a7;
         }
 
         .location-button:hover {
             background-color: #00665a;
+        }
+
+        .dark-mode .location-button:hover {
+            background-color: #3da897;
         }
 
         .location-button i {
@@ -735,6 +1058,11 @@
             border-radius: 4px;
             overflow: hidden;
             border: 1px solid #ddd;
+            transition: border-color 0.3s;
+        }
+
+        .dark-mode .photo-preview {
+            border-color: #444;
         }
 
         .photo-preview img {
@@ -755,6 +1083,11 @@
             height: 20px;
             font-size: 10px;
             cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .photo-preview .delete-photo:hover {
+            background: rgba(0,0,0,0.7);
         }
 
         /* Responsive Design */
@@ -802,6 +1135,13 @@
             .photo-options {
                 flex-direction: column;
             }
+
+            .theme-toggle {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-bottom: 15px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -824,6 +1164,9 @@
         <header>
             <h1><i class="fas fa-shield-virus"></i> Biosecurity Risk Assessment Tool</h1>
             <p class="subtitle">Comprehensive risk evaluation for biological safety</p>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
         </header>
 
         <!-- Progress Indicator -->
@@ -843,19 +1186,19 @@
             <form id="project-details-form">
                 <div class="form-group">
                     <label for="project-name">Project Name:</label>
-                    <input type="text" id="project-name" placeholder="Enter the project name" required>
+                    <input type="text" id="project-name" placeholder="Enter the project name" required aria-required="true">
                     <span class="input-icon"><i class="fas fa-tasks"></i></span>
                 </div>
 
                 <div class="form-group">
                     <label for="location">Location:</label>
-                    <input type="text" id="location" placeholder="e.g., GPS coordinates or address" required>
+                    <input type="text" id="location" placeholder="e.g., GPS coordinates or address" required aria-required="true">
                     <span class="input-icon"><i class="fas fa-map-marker-alt"></i></span>
                 </div>
 
                 <!-- Map Container -->
                 <div class="map-container">
-                    <div id="map"></div>
+                    <div id="map" aria-label="Project location map"></div>
                     <div class="map-coordinates" id="coordinates-display">Lat: 0, Lng: 0</div>
                 </div>
                 
@@ -871,40 +1214,40 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="assessor-name">Assessor Name:</label>
-                        <input type="text" id="assessor-name" placeholder="Enter the assessor's name" required>
+                        <input type="text" id="assessor-name" placeholder="Enter the assessor's name" required aria-required="true">
                         <span class="input-icon"><i class="fas fa-user"></i></span>
                     </div>
 
                     <div class="form-group">
                         <label for="date">Date of Assessment:</label>
-                        <input type="date" id="date" required>
+                        <input type="date" id="date" required aria-required="true">
                         <span class="input-icon"><i class="fas fa-calendar-alt"></i></span>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="project-description">Project Description:</label>
-                    <textarea id="project-description" rows="3" placeholder="Provide a detailed description..."></textarea>
+                    <textarea id="project-description" rows="3" placeholder="Provide a detailed description..." aria-label="Project description"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="project-purpose">Purpose of the Project:</label>
-                    <textarea id="project-purpose" rows="3" placeholder="State the project's goals and objectives..."></textarea>
+                    <textarea id="project-purpose" rows="3" placeholder="State the project's goals and objectives..." aria-label="Project purpose"></textarea>
                 </div>
 
                 <!-- Photo Upload Section -->
                 <div class="form-group photo-upload">
                     <label>Add Project Photos:</label>
                     <div class="photo-options">
-                        <button type="button" class="button secondary-button" id="take-photo-btn">
+                        <button type="button" class="button secondary-button" id="take-photo-btn" aria-label="Take photo">
                             <i class="fas fa-camera"></i> Take Photo
                         </button>
-                        <button type="button" class="button secondary-button" id="upload-photo-btn">
+                        <button type="button" class="button secondary-button" id="upload-photo-btn" aria-label="Upload photo">
                             <i class="fas fa-upload"></i> Upload Photo
                         </button>
                     </div>
-                    <div class="photo-preview-container" id="photo-preview"></div>
-                    <input type="file" id="photo-input" accept="image/*" capture="environment" style="display:none;">
+                    <div class="photo-preview-container" id="photo-preview" aria-label="Project photos"></div>
+                    <input type="file" id="photo-input" accept="image/*" capture="environment" style="display:none;" aria-hidden="true">
                 </div>
 
                 <div class="navigation-buttons">
@@ -921,13 +1264,13 @@
             <form>
                 <div class="form-group">
                     <label for="flora-fauna">Flora & Fauna Observed:</label>
-                    <textarea id="flora-fauna" rows="3" placeholder="List observed species here..."></textarea>
+                    <textarea id="flora-fauna" rows="3" placeholder="List observed species here..." aria-label="Flora and fauna observed"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="environmental-features">Environmental Features:</label>
                     <div class="select-container">
-                        <select id="environmental-features" multiple>
+                        <select id="environmental-features" multiple aria-label="Select environmental features">
                             <option value="wetlands">Wetlands</option>
                             <option value="forest">Forest</option>
                             <option value="urban-area">Urban Area</option>
@@ -942,31 +1285,31 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="distance-ecosystem">Distance to Sensitive Ecosystems (km):</label>
-                        <input type="number" id="distance-ecosystem" placeholder="Enter distance...">
+                        <input type="number" id="distance-ecosystem" placeholder="Enter distance..." min="0" step="0.1" aria-label="Distance to sensitive ecosystems in kilometers">
                         <span class="input-icon"><i class="fas fa-tree"></i></span>
                     </div>
 
                     <div class="form-group">
                         <label for="distance-infrastructure">Distance to Critical Infrastructure (km):</label>
-                        <input type="number" id="distance-infrastructure" placeholder="Enter distance...">
+                        <input type="number" id="distance-infrastructure" placeholder="Enter distance..." min="0" step="0.1" aria-label="Distance to critical infrastructure in kilometers">
                         <span class="input-icon"><i class="fas fa-building"></i></span>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="land-use-history">Land Use History:</label>
-                    <textarea id="land-use-history" rows="4" placeholder="E.g., farming, industrial activity..."></textarea>
+                    <textarea id="land-use-history" rows="4" placeholder="E.g., farming, industrial activity..." aria-label="Land use history"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="current-activities">Current Site Activities:</label>
-                    <textarea id="current-activities" rows="4" placeholder="E.g., construction, transportation..."></textarea>
+                    <textarea id="current-activities" rows="4" placeholder="E.g., construction, transportation..." aria-label="Current site activities"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="accessibility">Site Accessibility:</label>
                     <div class="select-container">
-                        <select id="accessibility">
+                        <select id="accessibility" aria-label="Select site accessibility type">
                             <option value="" disabled selected>Select accessibility type</option>
                             <option value="road">Road Access</option>
                             <option value="port">Port</option>
@@ -981,15 +1324,21 @@
                 <div class="form-group photo-upload">
                     <label>Add Site Photos:</label>
                     <div class="photo-options">
-                        <button type="button" class="button secondary-button" id="take-photo-btn-site">
+                        <button type="button" class="button secondary-button" id="take-photo-btn-site" aria-label="Take site photo">
                             <i class="fas fa-camera"></i> Take Photo
                         </button>
-                        <button type="button" class="button secondary-button" id="upload-photo-btn-site">
+                        <button type="button" class="button secondary-button" id="upload-photo-btn-site" aria-label="Upload site photo">
                             <i class="fas fa-upload"></i> Upload Photo
                         </button>
                     </div>
-                    <div class="photo-preview-container" id="photo-preview-site"></div>
-                    <input type="file" id="photo-input-site" accept="image/*" capture="environment" style="display:none;">
+                    <div class="photo-preview-container" id="photo-preview-site" aria-label="Site photos"></div>
+                    <input type="file" id="photo-input-site" accept="image/*" capture="environment" style="display:none;" aria-hidden="true">
+                </div>
+
+                <!-- Notes Section -->
+                <div class="form-group notes-section">
+                    <label for="site-notes">Additional Site Notes:</label>
+                    <textarea id="site-notes" rows="4" placeholder="Add any additional notes about the site..." aria-label="Additional site notes"></textarea>
                 </div>
 
                 <div class="navigation-buttons">
@@ -1010,8 +1359,8 @@
                 <div class="slider-container">
                     <label for="invasive-species">Invasive Species Risk:</label>
                     <div class="slider-wrapper">
-                        <input type="range" id="invasive-species" min="0" max="100" value="0" data-weight="0.28">
-                        <output id="invasive-species-value">0</output>
+                        <input type="range" id="invasive-species" min="0" max="100" value="0" data-weight="0.28" aria-label="Invasive species risk level">
+                        <output id="invasive-species-value" aria-live="polite">0</output>
                         <span class="risk-icon"><i class="fas fa-bug"></i></span>
                     </div>
                     <div class="slider-labels">
@@ -1024,8 +1373,8 @@
                 <div class="slider-container">
                     <label for="pathogen-spread">Pathogen Spread Risk:</label>
                     <div class="slider-wrapper">
-                        <input type="range" id="pathogen-spread" min="0" max="100" value="0" data-weight="0.22">
-                        <output id="pathogen-spread-value">0</output>
+                        <input type="range" id="pathogen-spread" min="0" max="100" value="0" data-weight="0.22" aria-label="Pathogen spread risk level">
+                        <output id="pathogen-spread-value" aria-live="polite">0</output>
                         <span class="risk-icon"><i class="fas fa-virus"></i></span>
                     </div>
                     <div class="slider-labels">
@@ -1038,8 +1387,8 @@
                 <div class="slider-container">
                     <label for="contamination">Contamination Risk:</label>
                     <div class="slider-wrapper">
-                        <input type="range" id="contamination" min="0" max="100" value="0" data-weight="0.18">
-                        <output id="contamination-value">0</output>
+                        <input type="range" id="contamination" min="0" max="100" value="0" data-weight="0.18" aria-label="Contamination risk level">
+                        <output id="contamination-value" aria-live="polite">0</output>
                         <span class="risk-icon"><i class="fas fa-biohazard"></i></span>
                     </div>
                     <div class="slider-labels">
@@ -1052,8 +1401,8 @@
                 <div class="slider-container">
                     <label for="transportation">Transportation Risk:</label>
                     <div class="slider-wrapper">
-                        <input type="range" id="transportation" min="0" max="100" value="0" data-weight="0.12">
-                        <output id="transportation-value">0</output>
+                        <input type="range" id="transportation" min="0" max="100" value="0" data-weight="0.12" aria-label="Transportation risk level">
+                        <output id="transportation-value" aria-live="polite">0</output>
                         <span class="risk-icon"><i class="fas fa-truck"></i></span>
                     </div>
                     <div class="slider-labels">
@@ -1066,8 +1415,8 @@
                 <div class="slider-container">
                     <label for="quarantine-breach">Quarantine Breach Risk:</label>
                     <div class="slider-wrapper">
-                        <input type="range" id="quarantine-breach" min="0" max="100" value="0" data-weight="0.10">
-                        <output id="quarantine-breach-value">0</output>
+                        <input type="range" id="quarantine-breach" min="0" max="100" value="0" data-weight="0.10" aria-label="Quarantine breach risk level">
+                        <output id="quarantine-breach-value" aria-live="polite">0</output>
                         <span class="risk-icon"><i class="fas fa-shield-alt"></i></span>
                     </div>
                     <div class="slider-labels">
@@ -1080,8 +1429,8 @@
                 <div class="slider-container">
                     <label for="training-compliance">Biosecurity Training Compliance:</label>
                     <div class="slider-wrapper">
-                        <input type="range" id="training-compliance" min="0" max="100" value="0" data-weight="0.10">
-                        <output id="training-compliance-value">0</output>
+                        <input type="range" id="training-compliance" min="0" max="100" value="0" data-weight="0.10" aria-label="Biosecurity training compliance level">
+                        <output id="training-compliance-value" aria-live="polite">0</output>
                         <span class="risk-icon"><i class="fas fa-graduation-cap"></i></span>
                     </div>
                     <div class="slider-labels">
@@ -1094,8 +1443,8 @@
                 <div class="slider-container">
                     <label for="supply-chain">Supply Chain Risk:</label>
                     <div class="slider-wrapper">
-                        <input type="range" id="supply-chain" min="0" max="100" value="0" data-weight="0.10">
-                        <output id="supply-chain-value">0</output>
+                        <input type="range" id="supply-chain" min="0" max="100" value="0" data-weight="0.10" aria-label="Supply chain risk level">
+                        <output id="supply-chain-value" aria-live="polite">0</output>
                         <span class="risk-icon"><i class="fas fa-boxes"></i></span>
                     </div>
                     <div class="slider-labels">
@@ -1110,15 +1459,21 @@
             <div class="form-group photo-upload">
                 <label>Add Risk Evidence Photos:</label>
                 <div class="photo-options">
-                    <button type="button" class="button secondary-button" id="take-photo-btn-risk">
+                    <button type="button" class="button secondary-button" id="take-photo-btn-risk" aria-label="Take risk evidence photo">
                         <i class="fas fa-camera"></i> Take Photo
                     </button>
-                    <button type="button" class="button secondary-button" id="upload-photo-btn-risk">
+                    <button type="button" class="button secondary-button" id="upload-photo-btn-risk" aria-label="Upload risk evidence photo">
                         <i class="fas fa-upload"></i> Upload Photo
                     </button>
                 </div>
-                <div class="photo-preview-container" id="photo-preview-risk"></div>
-                <input type="file" id="photo-input-risk" accept="image/*" capture="environment" style="display:none;">
+                <div class="photo-preview-container" id="photo-preview-risk" aria-label="Risk evidence photos"></div>
+                <input type="file" id="photo-input-risk" accept="image/*" capture="environment" style="display:none;" aria-hidden="true">
+            </div>
+
+            <!-- Notes Section -->
+            <div class="form-group notes-section">
+                <label for="risk-notes">Additional Risk Notes:</label>
+                <textarea id="risk-notes" rows="4" placeholder="Add any additional notes about the risks..." aria-label="Additional risk notes"></textarea>
             </div>
 
             <div class="navigation-buttons">
@@ -1149,7 +1504,7 @@
                 
                 <div class="risk-breakdown">
                     <h3>Risk Breakdown</h3>
-                    <canvas id="impact-chart"></canvas>
+                    <canvas id="impact-chart" aria-label="Risk breakdown chart"></canvas>
                 </div>
             </div>
 
@@ -1158,17 +1513,23 @@
                 <div id="recommendations" class="recommendations-list"></div>
             </div>
 
+            <!-- Notes Section -->
+            <div class="form-group notes-section">
+                <label for="results-notes">Assessment Notes:</label>
+                <textarea id="results-notes" rows="4" placeholder="Add any final notes about the assessment..." aria-label="Assessment notes"></textarea>
+            </div>
+
             <div class="action-buttons">
-                <button id="generate-report" class="button primary-button">
+                <button id="generate-report" class="button primary-button" aria-label="Generate PDF report">
                     <i class="fas fa-file-pdf"></i> Generate PDF Report
                 </button>
-                <button id="save-local" class="button secondary-button">
+                <button id="save-local" class="button secondary-button" aria-label="Save as CSV">
                     <i class="fas fa-file-csv"></i> Save as CSV
                 </button>
-                <button id="new-assessment" class="button">
+                <button id="new-assessment" class="button" aria-label="Start new assessment">
                     <i class="fas fa-plus"></i> New Assessment
                 </button>
-                <button id="delete-data" class="button danger-button">
+                <button id="delete-data" class="button danger-button" aria-label="Delete all data">
                     <i class="fas fa-trash-alt"></i> Delete Data
                 </button>
             </div>
@@ -1262,6 +1623,9 @@
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize theme
+            initTheme();
+            
             // Show first section by default
             showSection(0);
             updateProgressBar();
@@ -1284,6 +1648,34 @@
             // Load any saved data
             loadSavedData();
         });
+
+        // Theme management
+        function initTheme() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            
+            // Check for saved theme preference or use OS preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
+                document.body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+            
+            // Theme toggle button
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+                
+                // Update map theme if needed
+                if (map) {
+                    setTimeout(() => {
+                        map.invalidateSize();
+                    }, 300);
+                }
+            });
+        }
 
         // Initialize Leaflet map
         function initMap() {
@@ -1404,6 +1796,11 @@
                 const el = document.getElementById(section);
                 if (i === index) {
                     el.classList.add('active');
+                    // Set focus to first focusable element for better keyboard navigation
+                    setTimeout(() => {
+                        const focusable = el.querySelector('input, select, textarea, button');
+                        if (focusable) focusable.focus();
+                    }, 100);
                 } else {
                     el.classList.remove('active');
                 }
@@ -1460,6 +1857,22 @@
                     const errorMsg = input.nextElementSibling;
                     if (errorMsg && errorMsg.classList.contains('error-message')) {
                         errorMsg.remove();
+                    }
+                }
+            });
+
+            // Additional validation for numeric fields
+            const numericInputs = section.querySelectorAll('input[type="number"]');
+            numericInputs.forEach(input => {
+                if (input.value && isNaN(input.value)) {
+                    input.classList.add('error');
+                    isValid = false;
+                    
+                    if (!input.nextElementSibling || !input.nextElementSibling.classList.contains('error-message')) {
+                        const errorMsg = document.createElement('span');
+                        errorMsg.className = 'error-message';
+                        errorMsg.textContent = 'Please enter a valid number';
+                        input.parentNode.insertBefore(errorMsg, input.nextSibling);
                     }
                 }
             });
@@ -1720,18 +2133,22 @@
                         r: {
                             angleLines: {
                                 display: true,
-                                color: 'rgba(0, 0, 0, 0.1)'
+                                color: document.body.classList.contains('dark-mode') ? 'rgba(200, 200, 200, 0.1)' : 'rgba(0, 0, 0, 0.1)'
                             },
                             suggestedMin: 0,
                             suggestedMax: 100,
                             ticks: {
                                 stepSize: 20,
-                                backdropColor: 'rgba(255, 255, 255, 0.75)'
+                                backdropColor: document.body.classList.contains('dark-mode') ? 'rgba(50, 50, 50, 0.75)' : 'rgba(255, 255, 255, 0.75)'
                             },
                             pointLabels: {
                                 font: {
                                     size: 11
-                                }
+                                },
+                                color: document.body.classList.contains('dark-mode') ? '#e0e0e0' : '#4a4a4a'
+                            },
+                            grid: {
+                                color: document.body.classList.contains('dark-mode') ? 'rgba(200, 200, 200, 0.1)' : 'rgba(0, 0, 0, 0.1)'
                             }
                         }
                     },
@@ -1759,6 +2176,10 @@
         function updateRadarChart() {
             if (radarChart) {
                 radarChart.data = getChartData();
+                radarChart.options.scales.r.angleLines.color = document.body.classList.contains('dark-mode') ? 'rgba(200, 200, 200, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+                radarChart.options.scales.r.ticks.backdropColor = document.body.classList.contains('dark-mode') ? 'rgba(50, 50, 50, 0.75)' : 'rgba(255, 255, 255, 0.75)';
+                radarChart.options.scales.r.pointLabels.color = document.body.classList.contains('dark-mode') ? '#e0e0e0' : '#4a4a4a';
+                radarChart.options.scales.r.grid.color = document.body.classList.contains('dark-mode') ? 'rgba(200, 200, 200, 0.1)' : 'rgba(0, 0, 0, 0.1)';
                 radarChart.update();
             }
         }
@@ -1785,12 +2206,12 @@
                         parseInt(document.getElementById('training-compliance').value),
                         parseInt(document.getElementById('supply-chain').value)
                     ],
-                    backgroundColor: 'rgba(0, 122, 108, 0.2)',
-                    borderColor: 'rgba(0, 122, 108, 1)',
-                    pointBackgroundColor: 'rgba(0, 122, 108, 1)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgba(0, 122, 108, 1)',
+                    backgroundColor: document.body.classList.contains('dark-mode') ? 'rgba(77, 184, 167, 0.2)' : 'rgba(0, 122, 108, 0.2)',
+                    borderColor: document.body.classList.contains('dark-mode') ? 'rgba(77, 184, 167, 1)' : 'rgba(0, 122, 108, 1)',
+                    pointBackgroundColor: document.body.classList.contains('dark-mode') ? 'rgba(77, 184, 167, 1)' : 'rgba(0, 122, 108, 1)',
+                    pointBorderColor: document.body.classList.contains('dark-mode') ? '#333' : '#fff',
+                    pointHoverBackgroundColor: document.body.classList.contains('dark-mode') ? '#333' : '#fff',
+                    pointHoverBorderColor: document.body.classList.contains('dark-mode') ? 'rgba(77, 184, 167, 1)' : 'rgba(0, 122, 108, 1)',
                     borderWidth: 2,
                     pointRadius: 4
                 }]
@@ -1847,10 +2268,12 @@
                             
                             const img = document.createElement('img');
                             img.src = e.target.result;
+                            img.alt = `${section} photo ${i + 1}`;
                             
                             const deleteBtn = document.createElement('button');
                             deleteBtn.className = 'delete-photo';
                             deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
+                            deleteBtn.setAttribute('aria-label', `Delete ${section} photo ${i + 1}`);
                             deleteBtn.addEventListener('click', () => {
                                 photoDiv.remove();
                                 savePhotosToLocalStorage(section);
@@ -1929,16 +2352,18 @@
             photoPreview.innerHTML = '';
             
             if (currentData.photos[section]) {
-                currentData.photos[section].forEach(photoSrc => {
+                currentData.photos[section].forEach((photoSrc, index) => {
                     const photoDiv = document.createElement('div');
                     photoDiv.className = 'photo-preview';
                     
                     const img = document.createElement('img');
                     img.src = photoSrc;
+                    img.alt = `${section} photo ${index + 1}`;
                     
                     const deleteBtn = document.createElement('button');
                     deleteBtn.className = 'delete-photo';
                     deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    deleteBtn.setAttribute('aria-label', `Delete ${section} photo ${index + 1}`);
                     deleteBtn.addEventListener('click', () => {
                         photoDiv.remove();
                         savePhotosToLocalStorage(section);
@@ -1971,7 +2396,8 @@
                     distanceInfrastructure: document.getElementById('distance-infrastructure').value,
                     landUseHistory: document.getElementById('land-use-history').value,
                     currentActivities: document.getElementById('current-activities').value,
-                    accessibility: document.getElementById('accessibility').value
+                    accessibility: document.getElementById('accessibility').value,
+                    siteNotes: document.getElementById('site-notes').value
                 },
                 riskMetrics: {
                     invasiveSpecies: document.getElementById('invasive-species').value,
@@ -1980,9 +2406,12 @@
                     transportation: document.getElementById('transportation').value,
                     quarantineBreach: document.getElementById('quarantine-breach').value,
                     trainingCompliance: document.getElementById('training-compliance').value,
-                    supplyChain: document.getElementById('supply-chain').value
+                    supplyChain: document.getElementById('supply-chain').value,
+                    riskNotes: document.getElementById('risk-notes').value
                 },
-                photos: {}
+                resultsNotes: document.getElementById('results-notes').value,
+                photos: {},
+                theme: document.body.classList.contains('dark-mode') ? 'dark' : 'light'
             };
             
             // Save photos from all sections
@@ -2013,6 +2442,12 @@
             const savedData = localStorage.getItem('biosecurityAssessmentData');
             if (savedData) {
                 const data = JSON.parse(savedData);
+                
+                // Restore theme if saved
+                if (data.theme === 'dark') {
+                    document.body.classList.add('dark-mode');
+                    document.getElementById('theme-toggle').innerHTML = '<i class="fas fa-sun"></i>';
+                }
                 
                 // Project Details
                 if (data.projectDetails) {
@@ -2047,6 +2482,7 @@
                     document.getElementById('land-use-history').value = data.siteInfo.landUseHistory || '';
                     document.getElementById('current-activities').value = data.siteInfo.currentActivities || '';
                     document.getElementById('accessibility').value = data.siteInfo.accessibility || '';
+                    document.getElementById('site-notes').value = data.siteInfo.siteNotes || '';
                 }
                 
                 // Risk Metrics
@@ -2058,11 +2494,17 @@
                     document.getElementById('quarantine-breach').value = data.riskMetrics.quarantineBreach || '0';
                     document.getElementById('training-compliance').value = data.riskMetrics.trainingCompliance || '0';
                     document.getElementById('supply-chain').value = data.riskMetrics.supplyChain || '0';
+                    document.getElementById('risk-notes').value = data.riskMetrics.riskNotes || '';
                     
                     // Trigger updates for sliders
                     document.querySelectorAll("input[type='range']").forEach(slider => {
                         slider.dispatchEvent(new Event('input'));
                     });
+                }
+                
+                // Results Notes
+                if (data.resultsNotes) {
+                    document.getElementById('results-notes').value = data.resultsNotes || '';
                 }
                 
                 // Photos will be loaded when the section is shown
@@ -2090,6 +2532,7 @@
                 ["Site Information", "Land Use History", document.getElementById("land-use-history").value || "N/A"],
                 ["Site Information", "Current Site Activities", document.getElementById("current-activities").value || "N/A"],
                 ["Site Information", "Site Accessibility", document.getElementById("accessibility").value || "N/A"],
+                ["Site Information", "Site Notes", document.getElementById("site-notes").value || "N/A"],
                 
                 ["Risk Metrics", "Invasive Species Risk", document.getElementById("invasive-species").value || "0"],
                 ["Risk Metrics", "Pathogen Spread Risk", document.getElementById("pathogen-spread").value || "0"],
@@ -2098,9 +2541,11 @@
                 ["Risk Metrics", "Quarantine Breach Risk", document.getElementById("quarantine-breach").value || "0"],
                 ["Risk Metrics", "Training Compliance", document.getElementById("training-compliance").value || "0"],
                 ["Risk Metrics", "Supply Chain Risk", document.getElementById("supply-chain").value || "0"],
+                ["Risk Metrics", "Risk Notes", document.getElementById("risk-notes").value || "N/A"],
                 
                 ["Risk Assessment", "Total Risk Score", document.getElementById("risk-score").textContent || "0"],
-                ["Risk Assessment", "Risk Level", document.getElementById("risk-level").textContent || "Low Risk"]
+                ["Risk Assessment", "Risk Level", document.getElementById("risk-level").textContent || "Low Risk"],
+                ["Risk Assessment", "Results Notes", document.getElementById("results-notes").value || "N/A"]
             ];
 
             const csvContent = [
@@ -2138,9 +2583,9 @@
                 });
                 
                 // Colors
-                const primaryColor = "#007a6c"; // Teal
-                const secondaryColor = "#4a4a4a"; // Dark gray
-                const accentColor = "#e57200"; // Orange
+                const primaryColor = document.body.classList.contains('dark-mode') ? "#4db8a7" : "#007a6c";
+                const secondaryColor = document.body.classList.contains('dark-mode') ? "#666" : "#4a4a4a";
+                const accentColor = document.body.classList.contains('dark-mode') ? "#ff9800" : "#e57200";
                 
                 // Font sizes
                 const titleSize = 18;
@@ -2314,7 +2759,9 @@
                     { label: "Current Site Activities", 
                       value: document.getElementById("current-activities").value || "N/A" },
                     { label: "Site Accessibility", 
-                      value: document.getElementById("accessibility").value || "N/A" }
+                      value: document.getElementById("accessibility").value || "N/A" },
+                    { label: "Site Notes", 
+                      value: document.getElementById("site-notes").value || "N/A" }
                 ];
                 
                 siteFields.forEach(field => {
@@ -2437,7 +2884,8 @@
                     { label: "Transportation Risk", value: document.getElementById("transportation").value || "0" },
                     { label: "Quarantine Breach Risk", value: document.getElementById("quarantine-breach").value || "0" },
                     { label: "Training Compliance", value: document.getElementById("training-compliance").value || "0" },
-                    { label: "Supply Chain Risk", value: document.getElementById("supply-chain").value || "0" }
+                    { label: "Supply Chain Risk", value: document.getElementById("supply-chain").value || "0" },
+                    { label: "Risk Notes", value: document.getElementById("risk-notes").value || "N/A" }
                 ];
                 
                 // Table header
@@ -2536,6 +2984,22 @@
                         doc.text("No significant risks detected. Regular monitoring recommended.", margin, yPos);
                         yPos += lineHeight;
                     }
+                }
+                
+                // Add Results Notes if they exist
+                const resultsNotes = document.getElementById("results-notes").value;
+                if (resultsNotes) {
+                    doc.addPage();
+                    yPos = margin;
+                    addHeader(doc.internal.getNumberOfPages(), 0);
+                    addFooter();
+                    
+                    doc.setFontSize(sectionTitleSize);
+                    doc.setTextColor(primaryColor);
+                    doc.text("5. Assessment Notes", margin, yPos);
+                    yPos += lineHeight * 2;
+                    
+                    yPos = writeText(resultsNotes, margin, yPos);
                 }
                 
                 // Add headers and footers to all pages
